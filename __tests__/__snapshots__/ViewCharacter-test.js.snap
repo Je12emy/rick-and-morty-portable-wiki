@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders view character correctly 1`] = `
+<Text>
+  'Loading....'
+</Text>
+`;
+
+exports[`renders view character view 1`] = `
+<Text>
+  'Loading....'
+</Text>
+`;
