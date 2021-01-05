@@ -4,7 +4,7 @@ import {useQuery, useInfiniteQuery} from 'react-query';
 import {ItemCard} from '../components/ItemCard';
 import {useNavigation} from '@react-navigation/native';
 import {normalizeData} from '../utils/normalizeData';
-import {Searchbar} from 'react-native-paper';
+import {SearchBar} from '../components/SearchBar';
 
 export const Characters = () => {
   const navigation = useNavigation();
@@ -24,27 +24,27 @@ export const Characters = () => {
 
   const onChangeSearch = (query) => {
     setSearchQuery(query);
-    if (searchQuery === '') {
+    if (query === '') {
       setIsEmpty(true);
     }
   };
 
   const handleSearch = () => {
     // Remove all stored data
-    data.pages.pop();
+    data.pages = [];
     fetchNextPage({pageParam: 1});
   };
 
   const {isLoading, error, data, fetchNextPage, hasNextPage} = useInfiniteQuery(
     'characters',
     async ({pageParam = 1}) => {
-      console.info(
-        'Query: ',
-        'https://rickandmortyapi.com/api/character/?page=' +
-          pageParam +
-          '&name=' +
-          searchQuery,
-      );
+      // console.info(
+      //   'Query: ',
+      //   'https://rickandmortyapi.com/api/character/?page=' +
+      //     pageParam +
+      //     '&name=' +
+      //     searchQuery,
+      // );
       const request = await fetch(
         'https://rickandmortyapi.com/api/character/?page=' +
           pageParam +
@@ -88,12 +88,10 @@ export const Characters = () => {
 
   return (
     <SafeAreaView>
-      <Searchbar
-        style={{marginBottom: 1}}
-        placeholder="Search"
-        onChangeText={onChangeSearch}
+      <SearchBar
+        onChangeTextHandler={onChangeSearch}
         value={searchQuery}
-        onIconPress={handleSearch}
+        onIconPressHandler={handleSearch}
       />
       <FlatList
         data={normalizeData(data)}

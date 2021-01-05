@@ -5,6 +5,11 @@
  * @format
  * @flow strict-local
  */
+
+// Ingore all ***
+import {LogBox} from 'react-native';
+LogBox.ignoreAllLogs()
+
 import React from 'react';
 import {StyleSheet, Dimensions, StatusBar} from 'react-native';
 import {

@@ -6,14 +6,16 @@ import {imageIcon} from '../components/ItemCard';
 
 export const ViewEpisode = ({route, navigation}) => {
   const {episodeId} = route.params;
-  const [expanded, setExpanded] = React.useState(true);
+  const [expanded, setExpanded] = React.useState(false);
 
   // Character list
   const [characters, setCharacters] = React.useState([]);
 
   const handlePress = async () => {
-    getCharacterList();
     setExpanded(!expanded);
+    if (characters.length === 0) {
+      await getCharacterList();
+    }
   };
 
   const handleCharacterVisit = (id) => {

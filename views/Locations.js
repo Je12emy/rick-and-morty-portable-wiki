@@ -4,7 +4,8 @@ import {useQuery, useInfiniteQuery} from 'react-query';
 import {ItemCard} from '../components/ItemCard';
 import {useNavigation} from '@react-navigation/native';
 import {normalizeData} from '../utils/normalizeData';
-import {Searchbar} from 'react-native-paper';
+import {SearchBar} from '../components/SearchBar';
+
 
 export const Locations = () => {
   const navigation = useNavigation();
@@ -31,7 +32,7 @@ export const Locations = () => {
   };
 
   const handleSearch = () => {
-    data.pages.pop();
+    data.pages = [];
     fetchNextPage();
   };
 
@@ -81,12 +82,10 @@ export const Locations = () => {
   };
   return (
     <SafeAreaView>
-      <Searchbar
-        style={{marginBottom: 1}}
-        placeholder="Search"
-        onChangeText={onChangeSearch}
+      <SearchBar
+        onChangeTextHandler={onChangeSearch}
         value={searchQuery}
-        onIconPress={handleSearch}
+        onIconPressHandler={handleSearch}
       />
       <FlatList
         data={normalizeData(data)}

@@ -6,13 +6,15 @@ import {imageIcon} from '../components/ItemCard';
 
 export const ViewLocation = ({route, navigation}) => {
   const {locationId} = route.params;
-  const [expanded, setExpanded] = React.useState(true);
+  const [expanded, setExpanded] = React.useState(false);
   // Character list
   const [characters, setCharacters] = React.useState([]);
 
   const handlePress = async () => {
-    await getResidentList();
     setExpanded(!expanded);
+    if (characters.length === 0) {
+      await getResidentList();
+    }
   };
 
   const handleCharacterVisit = (id) => {

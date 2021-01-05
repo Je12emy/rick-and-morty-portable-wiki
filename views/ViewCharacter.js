@@ -5,14 +5,15 @@ import {useQuery} from 'react-query';
 
 export const ViewCharacter = ({route, navigation}) => {
   const {characterId} = route.params;
-  const [expanded, setExpanded] = React.useState(true);
+  const [expanded, setExpanded] = React.useState(false);
 
   // Episodes list
   const [episodes, setEpisodes] = React.useState([]);
 
   const handlePress = async () => {
     setExpanded(!expanded);
-    if (expanded) {
+    // If episode list is empty
+    if (episodes.length === 0) {
       await getEpisodeList();
     }
   };

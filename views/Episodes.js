@@ -4,7 +4,7 @@ import {useQuery, useInfiniteQuery} from 'react-query';
 import {ItemCard} from '../components/ItemCard';
 import {useNavigation} from '@react-navigation/native';
 import {normalizeData} from '../utils/normalizeData';
-import {Searchbar} from 'react-native-paper';
+import {SearchBar} from '../components/SearchBar';
 
 export const Episodes = () => {
   const navigation = useNavigation();
@@ -38,7 +38,6 @@ export const Episodes = () => {
   const {isLoading, error, data, fetchNextPage, hasNextPage} = useInfiniteQuery(
     'episodes',
     async ({pageParam = 1}) => {
-      console.log('Fetch page: ', pageParam);
       const request = await fetch(
         'https://rickandmortyapi.com/api/episode/?page=' +
           pageParam +
@@ -87,12 +86,10 @@ export const Episodes = () => {
 
   return (
     <SafeAreaView>
-      <Searchbar
-        style={{marginBottom: 1}}
-        placeholder="Search"
-        onChangeText={onChangeSearch}
+      <SearchBar
+        onChangeTextHandler={onChangeSearch}
         value={searchQuery}
-        onIconPress={handleSearch}
+        onIconPressHandler={handleSearch}
       />
       <FlatList
         data={normalizeData(data)}
